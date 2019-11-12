@@ -19,6 +19,10 @@ namespace Users.Controllers
     {
         private IUnitOfWork repository;    // Repository value.
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iunit"></param>
         public HomeController(IUnitOfWork iunit)
         {
             if (iunit != null)
