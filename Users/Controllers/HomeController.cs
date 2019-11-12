@@ -17,13 +17,13 @@ namespace Users.Controllers
     [Route("api/users")]
     public class HomeController : Controller
     {
-        private EFUnitOfWork repository;    // Repository value.
+        private IUnitOfWork repository;    // Repository value.
 
-        public HomeController(ApplicationContext context)
+        public HomeController(IUnitOfWork iunit)
         {
-            if (context != null)
+            if (iunit != null)
             {
-                repository = new EFUnitOfWork(context);
+                repository = iunit;
             }
             else
             {

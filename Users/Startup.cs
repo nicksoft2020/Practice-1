@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectDb.EF;
 using ProjectDb.Initial;
+using ProjectDb.Storage;
 
 namespace Users
 {
@@ -40,6 +42,9 @@ namespace Users
             });
             services.AddDbContext<ApplicationContext>(option
                 => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            services.AddScoped<IUnitOfWork, EFUnitOfWork>(); // Uses for constructor injection
             services.AddMvc();
         }
 
@@ -51,6 +56,7 @@ namespace Users
                 ApplicationContext db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
                 InitDb.Initial(db);
             }
+            
 
             if (env.IsDevelopment())
             {
